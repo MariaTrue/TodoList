@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To-do list</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="all-page">
+      <h1>TO-DO LIST</h1>
+
+      <div class="table" id="todos">
+        <div class="row">
+          <input
+            id="todo-name"
+            class="text"
+            type="text"
+            placeholder="Enter your task"
+          />
+          <input
+            class="btn-add"
+            type="button"
+            value="Add"
+            onclick="buttonAddPressed ()"
+          />
+        </div>
+        <div class="filter">
+          <label for="drop-down">Show:</label>
+          <select name="drop-down" id="drop-down" onchange="filterChanged()">
+            <option value="ALL_TASKS">All tasks</option>
+            <option value="COMPLETED">Complited</option>
+            <option value="UNCOMPLETED">Uncompleted</option>
+          </select>
+        </div>
+
+        <!-- <ul>
+          <div class="row">
+            <li>First task</li>
+            <input type="checkbox" name="task-status" />
+            <input class="btn-delete" type="button" value="Delete" />
+          </div>
+
+          <div class="row">
+            <li>Second task</li>
+            <input type="checkbox" name="task-status" />
+            <input class="btn-delete" type="button" value="Delete" />
+          </div>
+
+          <div class="row">
+            <li>Third task</li>
+            <input type="checkbox" name="task-status" />
+            <input class="btn-delete" type="button" value="Delete" />
+          </div>
+
+          <div class="row">
+            <li>Fourth task</li>
+            <input type="checkbox" name="task-status" />
+            <input class="btn-delete" type="button" value="Delete" />
+          </div>
+        </ul> -->
+      </div>
+    </div>
+  </body>
+  <script src="js/script.js"></script>
+</html>
