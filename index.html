@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>To-do list</title>
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="css/styles.css" />
   </head>
   <body>
     <div class="all-page">
@@ -19,16 +19,11 @@
             type="text"
             placeholder="Enter your task"
           />
-          <input
-            class="btn-add"
-            type="button"
-            value="Add"
-            onclick="buttonAddPressed ()"
-          />
+          <input class="btn-add" type="button" value="Add" id="button-add" />
         </div>
         <div class="filter">
           <label for="drop-down">Show:</label>
-          <select name="drop-down" id="drop-down" onchange="filterChanged()">
+          <select name="drop-down" id="drop-down">
             <option value="ALL_TASKS">All tasks</option>
             <option value="COMPLETED">Complited</option>
             <option value="UNCOMPLETED">Uncompleted</option>
@@ -63,5 +58,5 @@
       </div>
     </div>
   </body>
-  <script src="script.js"></script>
+  <script type="module" src="js/script.js"></script>
 </html>
