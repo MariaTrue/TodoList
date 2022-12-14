@@ -1,7 +1,7 @@
-const db = {
+export const db = {
     todos: [],
     filter: "ALL_TASKS",
-    getTodos: () => this.todos,
+    getTodos() { return this.todos},
     addTodo(name) {
         this.todos.push({
             name,
@@ -19,6 +19,6 @@ const db = {
             }
         })
     },
-    getFilter: () => this.filter,
-    setFilter: (filter) => this.filter = filter
+    getFilter() {return this.filter},
+    setFilter(filter) {return this.filter = filter}
 }
