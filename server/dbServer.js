@@ -20,5 +20,5 @@ export const db = {
         })
     },
     getFilter() {return this.filter},
-    setFilter(filter) {return this.filter = filter}
+    setFilter(filter) {this.filter = filter}
 }

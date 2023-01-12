@@ -17,6 +17,11 @@ app.post("/todo", (req, res) => {
   db.addTodo(todoName);
 });
 
+app.delete("/delete-todo", (req, res) => {
+  const todoId = JSON.parse(req.body());
+  db.deleteTodo(todoId);
+})
+
 app.get("/todo", (req, res) => {
   const todos = JSON.stringify(db.getTodos());
   res.send(todos).status(200);

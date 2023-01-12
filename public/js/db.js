@@ -1,7 +1,7 @@
 export const db = {
   getTodos() {
-    return async () => {
-      let todos;
+    let todos;
+    async() => {
       try {
         const response = await fetch('/todo', {method: "GET"});
         todos = response.json();
@@ -9,9 +9,8 @@ export const db = {
         console.log(`Todos didn't load :${err}`);
         todos = null;
       }
-      return todos;
     }
-    
+    return todos;
   },
   setFilter(selectedValue) {
     localStorage.setItem("filter", selectedValue);
@@ -20,17 +19,22 @@ export const db = {
     return localStorage.getItem("filter");
   },
   addTodo(name) {
-    async () => {
+    async() => {
         try{
-          const response = await fetch("/todo", {body: JSON.stringify(name), method: "POST"});
+          await fetch("/todo", {body: JSON.stringify(name), method: "POST"});
         }catch(err){
           console.log(`Todo didn't add : ${err}`);
         }
     }
   },
   deleteTodo(id) {
-    const arrByDelete = this.getTodos().filter((todo) => todo.id !== id);
-    this.saveTodosToStorage(arrByDelete);
+    async() => {
+      try{
+        await fetch("/delete-todo", {body: JSON.stringify(id), method: "DELETE"});
+      }catch(err){
+        console.log(`Todo didn't delete : ${err}`);
+      }
+    }
   },
   toggleTodo(id) {
     const todos = this.getTodos().map((todo) => {
@@ -39,9 +43,6 @@ export const db = {
       }
       return todo;
     });
-    this.saveTodosToStorage(todos);
-  },
-  saveTodosToStorage(todos) {
-    localStorage.setItem("todos", JSON.stringify(todos));
+    // this.saveTodosToStorage(todos);
   },
 };
