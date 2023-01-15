@@ -1,18 +1,18 @@
-import { db } from "./db.js";
+import { todoService } from "./todoService.js";
 import { createListTodoElement } from "./components/todoList.js";
 
-export function start() {
-  const todos = db.getTodos();
-  const filter = db.getFilter();
+export async function start() {
+  const todos = await todoService.getTodos();
+  // const filter = todoService.getFilter();
   let filteredTodos;
 
-  if (filter === "COMPLETED") {
-    filteredTodos = todos.filter((todo) => todo.completed);
-  } else if (filter === "UNCOMPLETED") {
-    filteredTodos = todos.filter((todo) => !todo.completed);
-  } else {
+  // if (filter === "COMPLETED") {
+  //   filteredTodos = todos.filter((todo) => todo.completed);
+  // } else if (filter === "UNCOMPLETED") {
+  //   filteredTodos = todos.filter((todo) => !todo.completed);
+  // } else {
     filteredTodos = todos;
-  }
+  // }
 
   renderTodos(filteredTodos);
 }
@@ -31,7 +31,7 @@ function renderTodos(todos) {
 function buttonAddPressed() {
   const todoName = document.getElementById("todo-name").value;
   if (todoName) {
-    db.addTodo(todoName);
+    todoService.addTodo(todoName);
     document.getElementById("todo-name").value = "";
     start();
   }
@@ -39,9 +39,10 @@ function buttonAddPressed() {
 
 function filterChanged() {
   const selectedValue = document.getElementById("drop-down").value;
-  db.setFilter(selectedValue);
+  todoService.setFilter(selectedValue);
   start();
 }
 
 document.getElementById("button-add").onclick = buttonAddPressed;
 document.getElementById("drop-down").onclick = filterChanged;
+start();

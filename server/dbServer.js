@@ -2,15 +2,23 @@ export const db = {
     todos: [],
     filter: "ALL_TASKS",
     getTodos() { return this.todos},
-    addTodo(name) {
-        this.todos.push({
-            name,
+    addTodo(title) {
+        const todo = {
+            title,
             completed: false,
-            id: Math.ceil(Math.random() * 10000),
-        })
+            id: String(Math.ceil(Math.random() * 10000)),
+        }
+        this.todos.push(todo);
+        return todo;
     },
     deleteTodo(id) {
-        this.todos = this.todos.filter((todo) => todo.id !== id)
+        const idxTodo = this.todos.findIndex((todo) => todo.id === id);
+
+        if(idxTodo === -1) {
+            console.error("[dbServer.deleteTodo] todo doesn't exist", id);
+            throw new Error(`Todo with id ${id} doesn't exist`);
+        }
+        return this.todos.splice(idxTodo, 1);
     },
     toggleTodo(id) {
         this.todos.forEach((todo) => {

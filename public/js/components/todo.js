@@ -1,13 +1,13 @@
-import { db } from "../db.js";
+import { todoService } from "../todoService.js";
 import { start } from "../script.js";
 
-function buttonDeletePressed(todoId) {
-  db.deleteTodo(todoId);
+ async function buttonDeletePressed(todoId) {
+  await todoService.deleteTodo(todoId);
   start();
 }
 
 function toggleTodo(todoId) {
-  db.toggleTodo(todoId);
+  todoService.toggleTodo(todoId);
   start();
 }
 
