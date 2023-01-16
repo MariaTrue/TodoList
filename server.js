@@ -14,8 +14,16 @@ app.post("/todo", (req, res) => {
   return res.send(todo).status(200);
 });
 
+app.patch("/todo", (req, res) => {
+  try {
+    const todo = db.updateTodo(req.body.todo);
+    return res.send(todo).status(200);
+  } catch (err) {
+    res.send({ error: err.message }).status(400);
+  }
+});
+
 app.delete("/todo/:id", (req, res) => {
-  console.log("app.delete", req.params.id);
   try {
     const todo = db.deleteTodo(req.params.id);
     return res.send(todo).status(200);
@@ -25,7 +33,8 @@ app.delete("/todo/:id", (req, res) => {
 });
 
 app.get("/todo", (req, res) => {
-  const todos = JSON.stringify(db.getTodos());
+  const { filter } = req.query;
+  const todos = JSON.stringify(db.getTodos(filter));
   return res.send(todos).status(200);
 });
 

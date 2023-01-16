@@ -9,18 +9,14 @@ const handleResponse = async (res) => {
 };
 
 export const todoService = {
-  getTodos() {
+  getTodos(filter) {
     try {
-      return fetch("/todo", { method: "GET" }).then(handleResponse);
+      return fetch(`/todo?filter=${filter}`, { method: "GET" }).then(
+        handleResponse
+      );
     } catch (err) {
       console.error("[db.getTodos] failed to fetch todos", err);
     }
-  },
-  setFilter(selectedValue) {
-    localStorage.setItem("filter", selectedValue);
-  },
-  getFilter() {
-    return localStorage.getItem("filter");
   },
   async addTodo(title) {
     try {
@@ -40,13 +36,15 @@ export const todoService = {
       console.error("[db.deleteTodo] failed to fetch todo id", err.message);
     }
   },
-  toggleTodo(id) {
-    const todos = this.getTodos().map((todo) => {
-      if (todo.id === id) {
-        todo.completed = !todo.completed;
-      }
-      return todo;
-    });
-    // this.saveTodosToStorage(todos);
+  async updateTodo(todo) {
+    try {
+      await fetch("/todo", {
+        method: "PATCH",
+        headers,
+        body: JSON.stringify({ todo }),
+      }).then(handleResponse);
+    } catch (err) {
+      console.error("[db.updateTodo] failed to update todo");
+    }
   },
 };

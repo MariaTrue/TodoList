@@ -1,25 +1,26 @@
-import { todoService } from "../todoService.js";
+import { todoService } from "../services/todoService.js";
 import { start } from "../script.js";
 
- async function buttonDeletePressed(todoId) {
+async function buttonDeletePressed(todoId) {
   await todoService.deleteTodo(todoId);
   start();
 }
 
-function toggleTodo(todoId) {
-  todoService.toggleTodo(todoId);
+async function toggleTodo(todo) {
+  todo.completed = !todo.completed;
+  await todoService.updateTodo(todo);
   start();
 }
 
 export function createTodoElement(todo) {
   const todoName = document.createElement("li");
-  todoName.innerText = todo.name;
+  todoName.innerText = todo.title;
 
   const completedCheckbox = document.createElement("input");
   completedCheckbox.type = "checkbox";
   completedCheckbox.name = "task-status";
   completedCheckbox.checked = todo.completed;
-  completedCheckbox.onchange = () => toggleTodo(todo.id);
+  completedCheckbox.onchange = () => toggleTodo(todo);
 
   const buttonDelete = document.createElement("input");
   buttonDelete.className = "btn-delete";

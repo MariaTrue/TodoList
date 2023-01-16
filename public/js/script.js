@@ -1,20 +1,12 @@
-import { todoService } from "./todoService.js";
+import { todoService } from "./services/todoService.js";
 import { createListTodoElement } from "./components/todoList.js";
+import { filterService } from "./services/filterService.js";
 
 export async function start() {
-  const todos = await todoService.getTodos();
-  // const filter = todoService.getFilter();
-  let filteredTodos;
+  const filter = filterService.getFilter();
+  const todos = await todoService.getTodos(filter);
 
-  // if (filter === "COMPLETED") {
-  //   filteredTodos = todos.filter((todo) => todo.completed);
-  // } else if (filter === "UNCOMPLETED") {
-  //   filteredTodos = todos.filter((todo) => !todo.completed);
-  // } else {
-    filteredTodos = todos;
-  // }
-
-  renderTodos(filteredTodos);
+  renderTodos(todos);
 }
 
 function renderTodos(todos) {
@@ -39,7 +31,7 @@ function buttonAddPressed() {
 
 function filterChanged() {
   const selectedValue = document.getElementById("drop-down").value;
-  todoService.setFilter(selectedValue);
+  filterService.setFilter(selectedValue);
   start();
 }
 
