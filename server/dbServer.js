@@ -9,6 +9,10 @@ export const db = {
     return this.todos;
   },
   addTodo(title) {
+    if (!title) {
+      console.error("[dbServer.addTodo] title is required");
+      throw new Error("Title is required");
+    }
     const todo = {
       title,
       completed: false,
@@ -24,7 +28,7 @@ export const db = {
       console.error("[dbServer.deleteTodo] todo doesn't exist", id);
       throw new Error(`Todo with id ${id} doesn't exist`);
     }
-    return this.todos.splice(idxTodo, 1);
+    return this.todos.splice(idxTodo, 1)[0];
   },
   updateTodo(todoForUpdate) {
     const { id } = todoForUpdate;
@@ -36,5 +40,9 @@ export const db = {
     }
     this.todos.splice(idxTodo, 1, todoForUpdate);
     return todoForUpdate;
+  },
+  deleteAllTodos() {
+    this.todos = [];
+    return this.todos;
   },
 };
