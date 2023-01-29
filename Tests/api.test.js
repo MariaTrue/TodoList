@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it } from "@jest/globals";
+import { afterEach, describe, expect, it } from "@jest/globals";
 import { Driver } from "./driver.js";
 import { faker } from "@faker-js/faker";
 
@@ -8,8 +8,8 @@ describe("API testing", () => {
   const driver = new Driver();
   driver.init();
 
-  beforeEach(() => {
-    driver.when.deleteAllTodos();
+  afterEach(() => {
+    driver.clean();
   });
 
   it("should return array with todos", async () => {

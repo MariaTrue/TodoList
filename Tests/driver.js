@@ -14,8 +14,8 @@ export class Driver {
     this.app = getApp();
   }
 
-  clean() {
-    this.app = null;
+  async clean() {
+    await this.request().delete("/todo-delete");
   }
 
   request() {
@@ -55,11 +55,6 @@ export class Driver {
       const response = await this.when.getTodos();
       const todo = JSON.parse(response.text).find((todo) => todo.id === id);
       return todo;
-    },
-    deleteAllTodos: async () => {
-      return await this.request()
-        .delete("/todo-delete")
-        .then((r) => JSON.parse(r.text)).value;
     },
   };
 }
